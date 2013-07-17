@@ -18,16 +18,40 @@
         var timeout = Math.round(Math.random()*200);
         setTimeout(function(){
             console.log(data);
-            callback(null, timeout);
+            callback(null, data*data);
         }, timeout);
 
         //return data;
     }
 
-    var callback = function(){
-        console.log(arguments, 'callback')
+
+    var filterIterator =  function(data, callback){
+        //console.log(arguments, 'iterator');
+
+        var timeout = Math.round(Math.random()*200);
+        setTimeout(function(){
+            callback(data%2===0);
+        }, timeout);
+
+        //return data;
     }
 
+    var reduceIterator =  function(memo, item, callback){
+        //console.log(arguments, 'iterator');
+
+        var timeout = Math.round(Math.random()*200);
+        setTimeout(function(){
+            callback(null, memo+item);
+        }, timeout);
+
+        //return data;
+    }
+
+
+    var callback = function(err, results){
+        console.log(results, 'callback')
+    }
+    
     //calls iterator in no sequence
     //async.each(data, iterator, callback);
 
@@ -35,7 +59,17 @@
     //async.eachSeries(data, iterator, callback);
 
     //same as each controls number of simultaneous calls at a time
-    async.eachLimit(data, 3, iterator, callback);
+    //async.eachLimit(data, 3, iterator, callback);
+
+
+    //async.map(data, iterator, callback);
+    //async.mapSeries(data, iterator, callback);
+
+
+    //async.reject(data, filterIterator, callback);
+
+    async.reduce(data, 0, reduceIterator, callback);
+
 
 
 
