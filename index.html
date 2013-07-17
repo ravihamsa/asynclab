@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Lab</title>
+</head>
+<body>
+
+
+<script type="text/javascript" src="async.js"></script>
+<script type="text/javascript">
+
+
+    var data = [1,2,4,5,6];
+
+    var iterator =  function(data, callback){
+        //console.log(arguments, 'iterator');
+
+        var timeout = Math.round(Math.random()*200);
+        setTimeout(function(){
+            console.log(data);
+            callback(null, timeout);
+        }, timeout);
+
+        //return data;
+    }
+
+    var callback = function(){
+        console.log(arguments, 'callback')
+    }
+
+    //calls iterator in no sequence
+    //async.each(data, iterator, callback);
+
+    //calls each in sequence
+    //async.eachSeries(data, iterator, callback);
+
+    //same as each controls number of simultaneous calls at a time
+    async.eachLimit(data, 3, iterator, callback);
+
+
+
+
+</script>
+</body>
+</html>
